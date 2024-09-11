@@ -22,12 +22,12 @@ class Triangle(Figure):
         self.side_c = side_c
 
     @property
-    def get_perimeter(self) -> int | float:
+    def perimeter(self) -> int | float:
         return self.side_a + self.side_b + self.side_c
 
     @property
-    def get_area(self) -> int | float:
-        half_perimeter = self.get_perimeter / 2
+    def area(self) -> int | float:
+        half_perimeter = self.perimeter / 2
         area = math.sqrt(
             half_perimeter *
             (half_perimeter - self.side_b) *

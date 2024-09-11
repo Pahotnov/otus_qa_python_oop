@@ -9,9 +9,9 @@ class Rectangle(Figure):
         self.side_b = side_b
 
     @property
-    def get_perimeter(self) -> int | float:
+    def perimeter(self) -> int | float:
         return (self.side_a + self.side_b) * 2
 
     @property
-    def get_area(self) -> int | float:
+    def area(self) -> int | float:
         return self.side_a * self.side_b
