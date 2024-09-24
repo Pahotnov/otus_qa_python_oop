@@ -53,12 +53,28 @@ def test_rectangle_add_circle_area(side_a, side_b, radius, area_sum):
 @pytest.mark.parametrize(
     "side_a, side_b, side_c, area_sum",
     [
-        (3, 4, 5, 16.898979485566358),
-        (3.5, 4.5, 5.5, 22.285659396725016)
+        (3, 4, 5, round(16.898979485566358, 2)),
+        (3.5, 4.5, 5.5, round(22.285659396725016, 2))
     ],
     ids=['integer', 'float']
 )
 def test_rectangle_add_triangle_area(side_a, side_b, side_c, area_sum):
     r = Rectangle(side_a, side_b)
     t = Triangle(side_a, side_b, side_c)
-    assert r.add_area(t) == area_sum
+    assert round(r.add_area(t), 2) == area_sum
+
+
+@pytest.mark.parametrize(
+    "side_a, side_b",
+    [
+        (-1, 2),
+        (-1.5, 2.5),
+        (2, 0),
+        (0.0, 3.7)
+    ],
+    ids=['negative_integer', 'negative_float', 'zero_integer', 'zero_float']
+)
+def test_rectangle_negative(side_a, side_b):
+    with pytest.raises(ValueError) as info:
+        Rectangle(side_a, side_b)
+    assert "Стороны должны быть больше нуля" in str(info.value)

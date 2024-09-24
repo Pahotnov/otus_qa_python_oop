@@ -38,12 +38,28 @@ def test_square_add_circle_area(side_a, radius, area_sum):
 @pytest.mark.parametrize(
     "side_a, side_b, side_c, area_sum",
     [
-        (3, 4, 5, 13.898979485566356),
-        (3.5, 4.5, 5.5, 18.785659396725016)
+        (3, 4, 5, round(13.898979485566356, 2)),
+        (3.5, 4.5, 5.5, round(18.785659396725016, 2))
     ],
     ids=['integer', 'float']
 )
 def test_square_add_triangle_area(side_a, side_b, side_c, area_sum):
     s = Square(side_a)
     t = Triangle(side_a, side_b, side_c)
-    assert s.add_area(t) == area_sum
+    assert round(s.add_area(t), 2) == area_sum
+
+
+@pytest.mark.parametrize(
+    "side_a",
+    [
+        -1,
+        -1.5,
+        0,
+        0.0
+    ],
+    ids=['negative_integer', 'negative_float', 'zero_integer', 'zero_float']
+)
+def test_square_negative(side_a):
+    with pytest.raises(ValueError) as info:
+        Square(side_a)
+    assert "Сторона должна быть больше нуля" in str(info.value)
